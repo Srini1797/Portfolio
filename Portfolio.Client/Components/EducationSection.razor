@@ -1,0 +1,28 @@
+@using Portfolio.Shared.Models
+
+<section id="education">
+    <div class="container">
+        <h2 class="section-title">Education</h2>
+        <div class="projects-grid">
+            @if (Educations != null)
+            {
+                foreach (var edu in Educations)
+                {
+                    <div class="glass-card animate-fade-in">
+                        <h3>@edu.Degree</h3>
+                        <h4 class="gradient-text">@edu.Institution</h4>
+                        <p class="text-secondary">@edu.StartDate - @(edu.EndDate ?? "Present")</p>
+                        @if (!string.IsNullOrEmpty(edu.Description))
+                        {
+                            <p style="margin-top: 1rem;">@edu.Description</p>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>
+
+@code {
+    [Parameter] public IEnumerable<Education>? Educations { get; set; }
+}

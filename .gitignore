@@ -9,3 +9,7 @@
 /Portfolio.Server/obj
 /Portfolio.Shared/bin/Debug/net8.0
 /Portfolio.Shared/obj
+/Portfolio.Client/bin/Release/net8.0
+/Portfolio.Server/bin/Release/net8.0
+/Portfolio.Shared/bin/Release/net8.0
+*.publishSettings

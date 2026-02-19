@@ -1,0 +1,43 @@
+@inject IJSRuntime JSRuntime
+
+<span class="typewriter">@displayText</span><span class="cursor">|</span>
+
+@code {
+    [Parameter] public string Text { get; set; } = string.Empty;
+    [Parameter] public int Speed { get; set; } = 100;
+    
+    private string displayText = string.Empty;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await TypeOut();
+        }
+    }
+
+    private async Task TypeOut()
+    {
+        foreach (var c in Text)
+        {
+            displayText += c;
+            StateHasChanged();
+            await Task.Delay(Speed);
+        }
+    }
+}
+
+<style>
+    .cursor {
+        display: inline-block;
+        width: 2px;
+        background-color: var(--accent-primary);
+        margin-left: 2px;
+        animation: blink 1s infinite;
+    }
+
+    @@keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+</style>

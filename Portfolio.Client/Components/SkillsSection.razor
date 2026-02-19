@@ -1,0 +1,35 @@
+@using Portfolio.Client.Services
+@using Portfolio.Shared.Models
+
+<section id="skills">
+    <div class="container">
+        <h2 class="section-title">Technical <span class="gradient-text">Skills</span></h2>
+        <div class="skills-grid">
+            @if (SkillGroups != null)
+            {
+                foreach (var group in SkillGroups)
+                {
+                    <div class="skill-category glass-card animate-fade-in">
+                        <h3>@group.Category</h3>
+                        @foreach (var skill in group.Skills)
+                        {
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span>@skill.Name</span>
+                                    <span>@skill.Proficiency%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: @(skill.Proficiency)%"></div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>
+
+@code {
+    [Parameter] public IEnumerable<SkillGroup>? SkillGroups { get; set; }
+}

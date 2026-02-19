@@ -1,0 +1,54 @@
+@using Portfolio.Shared.Models
+
+<section id="projects">
+    <div class="container">
+        <h2 class="section-title">Selected <span class="gradient-text">Projects</span></h2>
+        <div class="projects-grid">
+            @if (Projects != null)
+            {
+                foreach (var project in Projects)
+                {
+                    <div class="glass-card project-card animate-fade-in">
+                        <h3>@project.Name</h3>
+                        @if (!string.IsNullOrEmpty(project.Scope))
+                        {
+                            <p class="project-scope"><strong>Scope:</strong> @project.Scope</p>
+                        }
+                        <p class="project-description">@project.Description</p>
+                        
+                        @if (project.Contributions != null && project.Contributions.Any())
+                        {
+                            <ul class="project-contributions">
+                                @foreach (var contribution in project.Contributions)
+                                {
+                                    <li>@contribution</li>
+                                }
+                            </ul>
+                        }
+
+                        <div class="project-tech">
+                            @foreach (var tech in project.Technologies)
+                            {
+                                <span class="tech-tag">@tech</span>
+                            }
+                        </div>
+                        <div class="cta-buttons" style="margin-top: 1.5rem; justify-content: flex-start;">
+                            @if (!string.IsNullOrEmpty(project.LiveUrl))
+                            {
+                                <a href="@project.LiveUrl" target="_blank" class="btn btn-primary btn-sm" style="padding: 0.5rem 1rem; font-size: 0.8rem;">Live Demo</a>
+                            }
+                            @if (!string.IsNullOrEmpty(project.GitHubUrl))
+                            {
+                                <a href="@project.GitHubUrl" target="_blank" class="btn btn-secondary btn-sm" style="padding: 0.5rem 1rem; font-size: 0.8rem;">GitHub</a>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>
+
+@code {
+    [Parameter] public IEnumerable<Project>? Projects { get; set; }
+}

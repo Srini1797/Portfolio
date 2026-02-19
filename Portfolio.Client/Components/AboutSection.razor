@@ -1,0 +1,36 @@
+@using Portfolio.Shared.Models
+
+<section id="about">
+    <div class="container">
+        <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
+        <div class="glass-card animate-fade-in about-grid">
+            <div class="about-image-side">
+                @if (Profile != null)
+                {
+                    <img src="@Profile.ProfileImageUrl" alt="@Profile.FullName" class="about-img" />
+                }
+            </div>
+            <div class="about-text-side">
+                @if (Profile != null)
+                {
+                    <p class="lead">@Profile.Summary</p>
+                    <p>Located in <strong>@Profile.Location</strong>, I am passionate about building clean, efficient, and scalable web solutions. With over 6 years of experience, I've had the opportunity to work on diverse projects ranging from startup applications to enterprise-grade systems.</p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <span class="stat-num">6+</span>
+                            <span class="stat-label">Years Exp</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num">15+</span>
+                            <span class="stat-label">Projects</span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@code {
+    [Parameter] public Profile? Profile { get; set; }
+}

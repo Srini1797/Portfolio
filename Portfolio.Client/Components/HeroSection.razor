@@ -1,0 +1,33 @@
+@using Portfolio.Shared.Models
+@inject IJSRuntime JSRuntime
+
+<section class="hero" id="home">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="container">
+        <div class="hero-content animate-fade-in">
+            @if (Profile != null)
+            {
+                <!-- <div class="profile-img-container">
+                    <img src="@Profile.ProfileImageUrl" alt="@Profile.FullName" class="profile-img" />
+                </div> -->
+                <h1>Hi, I'm <span class="gradient-text">@Profile.FullName</span></h1>
+                <h3>Role: <span class="gradient-text"><Typewriter Text="@Profile.Title" Speed="100" /></span></h3>
+                <h3>Email: <span class="gradient-text"><Typewriter Text="@Profile.Email" Speed="100" /></span></h3>
+                <h3>Contact: <span class="gradient-text"><Typewriter Text="@Profile.Contact" Speed="100" /></span></h3>
+                <p>@Profile.Summary</p>
+                <div class="cta-buttons">
+                    <a href="@Profile.LinkedInUrl" target="_blank" class="btn btn-primary">LinkedIn</a>
+                </div>
+            }
+            else
+            {
+                <div class="loader">Loading...</div>
+            }
+        </div>
+    </div>
+</section>
+
+@code {
+    [Parameter] public Profile? Profile { get; set; }
+}

@@ -1,0 +1,49 @@
+@page "/"
+@using Portfolio.Client.Components
+@using Portfolio.Client.Services
+@using Portfolio.Shared.Models
+@inject IPortfolioService PortfolioService
+
+<PageTitle>Srinivasan Venkatesan | Senior Full Stack Developer</PageTitle>
+
+@if (profile == null)
+{
+    <div class="hero">
+        <div class="loader">Loading Portfolio...</div>
+    </div>
+}
+else
+{
+    <HeroSection Profile="@profile" />
+    <AboutSection Profile="@profile" />
+    <EducationSection Educations="@educations" />
+    <SkillsSection SkillGroups="@skillGroups" />
+    <ExperienceSection Experiences="@experiences" />
+    <ProjectsSection Projects="@projects" />
+}
+
+@code {
+    private Profile? profile;
+    private IEnumerable<SkillGroup>? skillGroups;
+    private IEnumerable<Experience>? experiences;
+    private IEnumerable<Project>? projects;
+    private IEnumerable<Education>? educations;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Load data in parallel for better performance
+        var profileTask = PortfolioService.GetProfileAsync();
+        var educationTask = PortfolioService.GetEducationAsync();
+        var skillsTask = PortfolioService.GetSkillsAsync();
+        var experienceTask = PortfolioService.GetExperiencesAsync();
+        var projectsTask = PortfolioService.GetProjectsAsync();
+
+        await Task.WhenAll(profileTask, skillsTask, experienceTask, projectsTask, educationTask);
+
+        profile = await profileTask;
+        skillGroups = await skillsTask;
+        experiences = await experienceTask;
+        projects = await projectsTask;
+        educations = await educationTask;
+    }
+}
